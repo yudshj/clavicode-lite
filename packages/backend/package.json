@@ -1,0 +1,48 @@
+{
+  "name": "clavicode-backend",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "start:dev": "NODE_ENV=development node dist/index.js",
+    "start": "PRODUCTION=1 node dist/index.js",
+    "build": "scripts/prepare_python.sh && tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@codingame/monaco-jsonrpc": "^0.3.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "express-rate-limit": "^6.2.0",
+    "express-ws": "^5.0.2",
+    "fs": "^0.0.1-security",
+    "iconv-lite": "^0.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mime": "^3.0.0",
+    "vscode-languageserver": "^7.0.0",
+    "vscode-ws-jsonrpc": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/express-ws": "^3.0.1",
+    "@types/mime": "^2.0.3",
+    "@types/node": "^18.17.1",
+    "@types/uuid": "^8.3.4",
+    "@types/ws": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "eslint": "^8.1.0",
+    "eslint-plugin-only-warn": "^1.0.3",
+    "nodemon": "^2.0.13",
+    "typescript": "^5.2.0"
+  },
+  "packageManager": "pnpm@8.7.5"
+}

@@ -1,0 +1,15 @@
+#sidebarSettings {
+
+  padding: 1em 2em;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  >app-sidebar-user {
+    min-height: 50%;
+  }
+
+  [nz-radio] {
+    display: block;
+  }
+}

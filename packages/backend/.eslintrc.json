@@ -1,0 +1,39 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "only-warn",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "semi": [
+      1
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      1,
+      {
+        "varsIgnorePattern": "_\\d*"
+      }
+    ],
+    "eqeqeq": [
+      1
+    ],
+    "no-constant-condition": [
+      1,
+      {
+        "checkLoops": false
+      }
+    ]
+  }
+}

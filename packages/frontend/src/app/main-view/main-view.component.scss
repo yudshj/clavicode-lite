@@ -1,0 +1,67 @@
+#mainViewContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  #activityBarIconConatiner {
+    display: flex;
+    flex-direction: column;
+    background-color: #2c2c2c;
+    list-style-type: none;
+    padding: 0;
+    width: 48px;
+    height: 100%;
+
+    .activity-bar-icon {
+      display: block;
+      color: #808080;
+      font-size: 24px;
+      line-height: 24px;
+      padding: 12px;
+    }
+
+    .activity-bar-icon:hover {
+      color: white;
+    }
+
+    .active.activity-bar-icon {
+      color: white;
+      box-shadow: inset 2px 0 white;
+    }
+  }
+  
+  #asContainer {
+    flex-grow: 1;
+
+    #tabsAsArea {
+      position: relative;
+      overflow: hidden;
+
+      #showToolsFab {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+
+    #toolsAsArea {
+      display: flex;
+      flex-direction: column;
+
+      #toolsTabset {
+        flex-shrink: 0;
+      }
+
+      #outputSelect {
+        margin-right: 2em;
+        min-width: 160px;
+      }
+
+      #toolsContainer {
+        flex-grow: 1;
+        overflow: auto;
+      }
+    }
+
+  }
+}

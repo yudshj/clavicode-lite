@@ -1,0 +1,13 @@
+node_modules/
+
+# Build files
+build/*
+dist/*
+
+/static/**
+
+.env
+
+# Python virtual env
+pyvenv/
+

@@ -1,0 +1,7 @@
+{
+  "licenser.author": "Clavicode Team",
+  "licenser.license": "GPLv3",
+  "licenser.disableAutoHeaderInsertion": true,
+  "vsicons.presets.angular": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
