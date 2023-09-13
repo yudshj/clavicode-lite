@@ -64,7 +64,7 @@ python-sat==0.1.7.dev15 \
 pytz==2021.3 \
 pywavelets==1.2.0 \
 pyyaml==6.0 \
-regex==2021.7.6 \
+regex==2021.8.3 \
 retrying==1.3.3 \
 scikit-image==0.19.1 \
 scikit-learn==1.0.2 \
