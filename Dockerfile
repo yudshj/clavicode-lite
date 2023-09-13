@@ -18,4 +18,4 @@ RUN pnpm -r install --offline --unsafe-perm && \
 EXPOSE 3000
 ENV PORT 3000
 ENV PROD 1
-CMD ["pnpm", "--filter", "backend", "start"]
+CMD ["pnpm", "--filter", "clavicode-backend", "start"]
