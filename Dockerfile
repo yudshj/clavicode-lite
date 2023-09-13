@@ -1,16 +1,11 @@
-FROM node:18.17.1
+FROM python:3.8.18
 
-RUN apt update && \
-    apt install -y software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt update && \
-    apt install -y python3.8
+RUN apt-get update && apt-get install -y npm && \
+  npm install -g n && \
+  n 18.17.1 && \
+  corepack enable && corepack prepare pnpm@8.7.5 --activate
 
-RUN corepack enable && \
-  pnpm add -g pnpm
-
-
-WORKDIR /ppqs
+WORKDIR /clavicode
 
 COPY pnpm-lock.yaml ./
 RUN pnpm fetch
