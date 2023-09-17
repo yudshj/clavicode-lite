@@ -3,5 +3,7 @@ services:
   app:
     build: .
     restart: unless-stopped
+    environment:
+      - "HOSTNAME=${HOSTNAME}"
     ports:
       - "3000:3000"
