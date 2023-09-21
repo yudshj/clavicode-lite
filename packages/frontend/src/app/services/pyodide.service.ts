@@ -26,6 +26,7 @@ import { terminalWidth } from '../execute-dialog/xterm/xterm.component';
 import { StatusService } from './status.service';
 import { CHUNK_SIZE, FS_PATCH_LINENO, MAX_PATH, MT_CREATE, MT_DONE, MT_LEN, MT_OFFSET, MT_PATH } from '../pyodide/constants';
 import { FileLocalService } from './file-local.service';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 const INPUT_BUF_SIZE = 128 * 1024;
 const encoder = new TextEncoder();
@@ -87,11 +88,12 @@ export class PyodideService implements ILocalTermService {
   // interrupt = new Subject<void>();
   closed = new Subject<string | null>();
 
-  enableUnbufferPatch = true;
+  readonly enableUnbufferPatch = true;
 
   private initPromise: Promise<void>;
 
   constructor(
+    private modal: NzModalService,
     private statusService: StatusService,
     private dialogService: DialogService,
     private flService: FileLocalService,
@@ -123,9 +125,9 @@ export class PyodideService implements ILocalTermService {
   }
 
   private async output(str: string) {
-    const r = this.writeResponse.pipe(
+    const r = firstValueFrom(this.writeResponse.pipe(
       take(1)
-    ).toPromise();
+    ));
     this.writeRequest.next(str);
     return r;
   }
@@ -166,7 +168,31 @@ export class PyodideService implements ILocalTermService {
   }
 
   async runCode(code: string, showDialog = true) {
+    let canceled = false;
+    let ref: NzModalRef | null = null;
+    const delayedModalLoad = setTimeout(() => {
+      ref = this.modal.create({
+        nzTitle: "解释器加载中...",
+        nzContent: "首次加载可能需要数十秒到数分钟不等。",
+        nzClosable: false,
+        nzMaskClosable: false,
+        nzFooter: [
+          {
+            label: '取消',
+            onClick: () => {
+              canceled = true;
+              ref?.destroy();
+            }
+          },
+        ]
+      });
+    }, 100);
     await this.initPromise;
+    if (canceled) {
+      return;
+    }
+    clearTimeout(delayedModalLoad);
+    (ref as NzModalRef | null)?.close();
     this.interruptBuffer[0] = 0;
     this.statusService.next('local-executing');
     if (showDialog) {

@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "",
   "type": "module",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start:dev": "NODE_ENV=development node dist/index.js",
-    "start": "PRODUCTION=1 node dist/index.js",
+    "start": "NODE_ENV=production node dist/index.js",
     "build": "scripts/prepare_python.sh && tsc"
   },
   "keywords": [],
