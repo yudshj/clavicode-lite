@@ -7,7 +7,7 @@
   "scripts": {
     "start:dev": "NODE_ENV=development node dist/index.js",
     "start": "NODE_ENV=production node dist/index.js",
-    "build": "scripts/prepare_python.sh && tsc"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
