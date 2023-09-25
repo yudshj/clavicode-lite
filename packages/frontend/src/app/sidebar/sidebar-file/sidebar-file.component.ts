@@ -56,7 +56,7 @@ export class SidebarFileComponent implements OnInit {
   }
 
   newFile(root = false) {
-    const filename = prompt();
+    const filename = prompt("【新建文件】键入文件名：");
     if (!filename) return;
     if (root) this.selectedNode = null;
     if (this.selectedNode === null) {
@@ -67,7 +67,7 @@ export class SidebarFileComponent implements OnInit {
     }
   }
   newFolder(root = false) {
-    const filename = prompt();
+    const filename = prompt("【新建文件夹】键入文件夹名：");
     if (!filename) return;
     if (root) this.selectedNode = null;
     if (this.selectedNode === null) {

@@ -2,10 +2,10 @@
   <div class="control-bar">
     <button nz-button (click)="loadFolder()">打开本地文件夹</button>
     <div class="spacer"></div>
-    <button nz-button nzType="text" [disabled]="!loaded" (click)="newFile(true)">
+    <button nz-button nzType="text" [disabled]="!loaded" (click)="newFile(true)" title="根目录新建文件">
       <i nz-icon nzType="file-add"></i>
     </button>
-    <button nz-button nzType="text" [disabled]="!loaded" (click)="newFolder(true)">
+    <button nz-button nzType="text" [disabled]="!loaded" (click)="newFolder(true)" title="根目录新建文件夹">
       <i nz-icon nzType="folder-add"></i>
     </button>
   </div>
