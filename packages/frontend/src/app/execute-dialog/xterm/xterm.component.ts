@@ -76,6 +76,7 @@ export class XtermComponent implements OnInit {
     // });
     const subscriptions: Subscription[] = [];
     subscriptions.push(service.readRequest.subscribe(async () => {
+      await new Promise((r) => setTimeout(r, 100));
       const input = await localEcho.read().catch(() => "");
       service.readResponse.next(input);
     }));
