@@ -48,4 +48,7 @@
     </ul>
   </nz-dropdown-menu>
   <div *ngIf="loaded" class="spacer" (contextmenu)="showContextMenu($event, contextMenuSpacer)"></div>
+  <div *ngIf="!loaded" class="empty">
+    点击左上角按钮可打开本地工作文件夹。
+  </div>
 </div>

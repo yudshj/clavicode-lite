@@ -211,8 +211,11 @@ export class FileLocalService {
   }
 
   private async requestPermission(handle: FileSystemHandle) {
-    return !((await handle.queryPermission(REQ_RW_OPT)) !== 'granted' &&
-      await handle.requestPermission(REQ_RW_OPT) !== 'granted');
+    if ((await handle.queryPermission(REQ_RW_OPT)) !== 'granted') {
+      return await handle.requestPermission(REQ_RW_OPT) === 'granted';
+    } else {
+      return true;
+    }
   }
 
   async openLocal(handle: FileSystemHandle) {
