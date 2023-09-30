@@ -168,7 +168,7 @@ async function getReplInterface(
         if (value !== undefined) {
           outCb(
             repr_shorten.callKwargs(value, {
-              separator: "\n[[;orange;]<long output truncated>]\n",
+              separator: "\n\x1b[38;5;208m<long output truncated>\x1b[0m\n",
             })
           );
         }
