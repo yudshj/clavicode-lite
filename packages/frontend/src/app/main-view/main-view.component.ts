@@ -18,7 +18,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExecuteService } from '../services/execute.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { CompileService } from '../services/compile.service';
 import { EditorService } from '../services/editor.service';
 import { DialogService } from '@ngneat/dialog';
 import { filter, take } from 'rxjs/operators';
@@ -96,8 +95,6 @@ export class MainViewComponent implements OnInit {
 
   constructor(private router: Router,
     private dialogService: DialogService,
-    private executeService: ExecuteService,
-    private compileService: CompileService,
     private editorService: EditorService) {
   }
 

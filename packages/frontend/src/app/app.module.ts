@@ -38,7 +38,6 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 
 import { AngularSplitModule } from 'angular-split';
-import { TabsModule } from './tabs/tabs.module';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -51,6 +50,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { EditorComponent } from './tabs/editor/editor.component';
+import { TabsComponent } from './tabs/tabs/tabs.component';
 
 registerLocaleData(zh);
 
@@ -63,6 +64,8 @@ registerLocaleData(zh);
     EmptyPageComponent,
     XtermComponent,
     ExecuteDialogComponent,
+    EditorComponent,
+    TabsComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +86,6 @@ registerLocaleData(zh);
     NzDropDownModule,
     NzSelectModule,
     NzNotificationModule,
-    TabsModule,
     SidebarModule
   ],
   providers: [

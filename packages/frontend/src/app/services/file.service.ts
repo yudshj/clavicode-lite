@@ -46,33 +46,6 @@ export class FileService {
     });
   }
 
-  async openRemote(showDialog = true, filepath: string): Promise<boolean> {
-    const result = await firstValueFrom(this.http.post<CppGetHeaderFileResponse>(
-      GET_HEADER_URL,
-      <CppGetHeaderFileRequest>{
-        path: filepath
-      }));
-    if (result.success === false) {
-      alert(result.reason);
-      return false;
-    }
-    const exist = this.tabsService.tabList.find(v => v.path === filepath);
-    if (exist) {
-      this.tabsService.changeActive(exist.key);
-      return true;
-    }
-    const key = uuid();
-    this.tabsService.add({
-      key: key,
-      type: "remote",
-      title: basename(filepath),
-      code: result.content,
-      path: filepath,
-    });
-    this.tabsService.changeActive(key);
-    return true;
-  }
-
   /**
    * Locate to a specify position of a file
    * @param filepath
@@ -83,8 +56,7 @@ export class FileService {
   async locate(filepath: string, row: number, col: number, type: 'cursor' | 'debug' = 'cursor') {
     const target = this.tabsService.tabList.find(t => t.path === filepath);
     if (typeof target === "undefined") {
-      const result = await this.openRemote(false, filepath);
-      if (!result) return;
+      return;
     } else {
       this.tabsService.changeActive(target.key);
     }

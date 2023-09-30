@@ -45,6 +45,10 @@ export class TabsComponent implements OnInit {
     return this.tabsService.tabList;
   }
 
+  get hasInterpreter() {
+    return this.tabList.some((t) => t.type === 'interpreter');
+  }
+
   get activeIndex(): number {
     return this.tabsService.getActive()[1];
   }
@@ -56,6 +60,17 @@ export class TabsComponent implements OnInit {
 
   private doRemoveTab(tab: Tab) {
     this.activeIndex = this.tabsService.remove(tab.key);
+  }
+
+  addInterpreter() {
+    this.tabsService.add({
+      type: 'interpreter',
+      code: '',
+      key: "#interpreter",
+      path: '/tmp/dev/interpreter',
+      title: 'REPL'
+    });
+    this.tabsService.changeActive("#interpreter");
   }
 
   closeTab(e: { index: number }) {

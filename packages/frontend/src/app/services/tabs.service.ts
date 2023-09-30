@@ -1,28 +1,27 @@
 // Copyright (C) 2021 Clavicode Team
-// 
+//
 // This file is part of clavicode-frontend.
-// 
+//
 // clavicode-frontend is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // clavicode-frontend is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with clavicode-frontend.  If not, see <http://www.gnu.org/licenses/>.
 
 import { Injectable } from '@angular/core';
-import { basename } from 'path';
 
 import { EditorService } from './editor.service';
 
 export interface Tab {
   key: string; // An unique udid for each tab
-  type: "pinned" | "local" | "remote",
+  type: 'pinned' | 'local' | 'interpreter';
   title: string;
   code: string;
   path: string;
@@ -30,36 +29,39 @@ export interface Tab {
 }
 
 interface TabOptions {
-  key: string,
-  type: "local" | "remote",
-  title: string,
-  code: string,
-  path: string
+  key: string;
+  type: 'local' | 'interpreter';
+  title: string;
+  code: string;
+  path: string;
 }
 
-const INIT_TABS: Record<string, {
-  ext: string;
-  code: string;
-}> = {
-  'cpp': {
-    ext: "cpp",
+const INIT_TABS: Record<
+  string,
+  {
+    ext: string;
+    code: string;
+  }
+> = {
+  cpp: {
+    ext: 'cpp',
     code: `#include <iostream>
 int main() {
     std::cout << "Hello, world!" << std::endl;
 }`,
   },
-  'python': {
-    ext: "py",
+  python: {
+    ext: 'py',
     code: `# A + B problems in Python
 a = int(input("请输入 a："))
 b = int(input("请输入 b："))
 print("结果是：", end='')
-print(a + b)`
-  }
+print(a + b)`,
+  },
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TabsService {
   tabList: Tab[];
@@ -67,14 +69,16 @@ export class TabsService {
 
   constructor(private editorService: EditorService) {
     const init = INIT_TABS[this.pinnedLang];
-    this.tabList = [{
-      key: 'main',
-      title: `main.${init.ext}`,
-      path: `/tmp/main.${init.ext}`,
-      type: 'pinned',
-      code: init.code,
-      saved: true
-    }];
+    this.tabList = [
+      {
+        key: 'main',
+        title: `main.${init.ext}`,
+        path: `/tmp/main.${init.ext}`,
+        type: 'pinned',
+        code: init.code,
+        saved: true,
+      },
+    ];
   }
 
   /** Sync tab.code from current editor. */
@@ -93,33 +97,31 @@ export class TabsService {
   getByKey(key: string): [Tab | null, number] {
     const index = this.tabList.findIndex((x: Tab) => x.key === key);
     if (index === -1) return [null, -1];
-    return [
-      this.tabList[index],
-      index
-    ];
+    return [this.tabList[index], index];
   }
 
   changeActive(key?: string): void;
   changeActive(index: number): void;
   changeActive(arg?: string | number): void {
-    if (typeof arg === "undefined") {
-      if (this.editorService.isInit) this.editorService.switchToModel(this.getActive()[0]!);
+    if (typeof arg === 'undefined') {
+      const [active] = this.getActive();
+      if (active && active.type !== "interpreter" && this.editorService.isInit)
+        this.editorService.switchToModel(active);
       return;
     }
     if (this.activeTabKey !== null) {
       this.syncActiveCode();
     }
-    if (typeof arg === "string") {
+    if (typeof arg === 'string') {
       this.activeTabKey = arg;
-    }
-    else if (typeof arg === "number") {
+    } else if (typeof arg === 'number') {
       this.activeTabKey = this.tabList[arg].key;
     }
     const [newActive] = this.getActive();
     if (newActive === null) return;
-    if (this.editorService.isInit)
+    if (newActive.type !== 'interpreter' && this.editorService.isInit) {
       this.editorService.switchToModel(newActive);
-    // this.electronService.ipcRenderer.invoke('window/setTitle', newActive.path ?? newActive.title);
+    }
   }
 
   get hasActiveFile() {
@@ -132,9 +134,9 @@ export class TabsService {
       key: options.key,
       type: options.type,
       title: options.title,
-      code: options.code ?? "",
+      code: options.code ?? '',
       saved: true,
-      path: options.path ?? `/tmp/${options.title}`
+      path: options.path ?? `/tmp/${options.title}`,
     };
     this.tabList.push(newTab);
   }
@@ -185,7 +187,7 @@ export class TabsService {
       path: `/tmp/main.${tab.ext}`,
       type: 'pinned',
       code: code ?? tab.code,
-      saved: true
+      saved: true,
     };
     this.activeTabKey = null; // prevent sync editor code to tab
     this.changeActive('main');

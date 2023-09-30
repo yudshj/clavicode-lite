@@ -1,7 +1,7 @@
 <div id="tabContainer">
   <nz-tabset nzType="editable-card" [(nzSelectedIndex)]="activeIndex"
     (nzClose)="closeTab($event)" nzHideAdd cdkDropList cdkDropListOrientation="horizontal"
-    (cdkDropListDropped)="cdkOnDrop($any($event))">
+    (cdkDropListDropped)="cdkOnDrop($any($event))" [nzTabBarExtraContent]="launchInterpreterButton">
     <nz-tab *ngFor="let tab of tabList" [nzTitle]="titleTemplate" [nzClosable]="tab.type !== 'pinned'">
       <ng-template #titleTemplate>
         <div cdkDrag class="tab-title"
@@ -17,13 +17,12 @@
       </nz-dropdown-menu>
     </nz-tab>
   </nz-tabset>
-  <!-- <ng-template #languageSelect>
-    <nz-select id="languageSelect" *ngIf="tabList[activeIndex]?.type === 'pinned'" [(ngModel)]="currentLang">
-      <nz-option *ngFor="let i of languages" [nzValue]="i.id" [nzLabel]="i.title"></nz-option>
-    </nz-select>
-  </ng-template> -->
+  <ng-template #launchInterpreterButton>
+    <button nz-button id="launchInterpreterButton" [disabled]="hasInterpreter" (click)="addInterpreter()">启动 REPL</button>
+  </ng-template>
   <div id="routerWrapper">
-    <router-outlet></router-outlet>
+    <app-editor [class.hidden]="tabList[activeIndex].type === 'interpreter'"></app-editor>
+    <app-xterm class="repl" [class.hidden]="tabList[activeIndex].type !== 'interpreter'" type="repl"></app-xterm>
   </div>
 </div>
 <nz-modal [nzVisible]="!!notSaveModalTab" nzTitle="未保存" (nzOnCancel)="notSaveModalCancel()">

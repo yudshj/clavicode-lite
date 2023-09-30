@@ -405,7 +405,7 @@ export class EditorService {
       this.modelInfos[newUri] = {
         cursor: { column: 1, lineNumber: 1 },
         scrollTop: 0,
-        readOnly: tab.type === "remote",
+        readOnly: false,
         bkptDecs: [],
       };
       if (replace && oldModel !== null && oldUri) {

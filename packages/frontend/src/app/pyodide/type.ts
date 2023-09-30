@@ -42,6 +42,8 @@ export type PyodideExecutionResult = {
   error: any
 };
 
+export type ReplInterface = (s: string) => void;
+
 export type PyodideRemote = {
   /**
    * 
@@ -67,4 +69,8 @@ export type PyodideRemote = {
     writeMetaBuffer: Int32Array,
     writeCallback: () => void): void;
   runCode(code: string): Promise<PyodideExecutionResult>;
+  getReplInterface(
+    outCb: (s: string) => void,
+    errCb: (s: string) => void,
+    promptCb: (s: string) => void): Promise<ReplInterface>;
 }

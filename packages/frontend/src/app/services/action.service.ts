@@ -2,9 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CompileService } from './compile.service';
 import { EditorService } from './editor.service';
-import { ExecuteService } from './execute.service';
 import { FileLocalService } from './file-local.service';
 import { PyodideService } from './pyodide.service';
 import { StatusService } from './status.service';
@@ -46,7 +44,10 @@ export class ActionService {
       name: '编译运行',
       icon: 'play-circle',
       shortcut: 'control.b',
-      enabled: () => this.statusService.value === 'ready',
+      enabled: () => {
+        const type = this.tabsService.getActive()[0]?.type;
+        return type === 'pinned' || type === 'local';
+      },
       run: async () => {
         this.pyodideService.runCode(this.editorService.getCode());
       }

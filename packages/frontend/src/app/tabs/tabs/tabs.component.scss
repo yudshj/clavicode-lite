@@ -17,8 +17,18 @@
     min-height: 0;
   }
 
-  #languageSelect {
-    margin-right: 2em;
+  #launchInterpreterButton {
+    margin-right: 1em;
     min-width: 90px;
   }
+
+  .repl {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.hidden {
+  display: none;
 }
