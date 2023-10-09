@@ -37,7 +37,7 @@ export class SidebarFileComponent implements OnInit {
       this.dataSource = this.flService.dataSource;
     }
 
-  enabled = "showDirectoryPicker" in window;
+  readonly enabled = "showDirectoryPicker" in window;
 
   ngOnInit(): void {
   }
@@ -47,6 +47,12 @@ export class SidebarFileComponent implements OnInit {
 
   get loaded() {
     return !!this.flService.rootHandle;
+  }
+  get rootEmpty() {
+    return this.flService.rootEmpty();
+  }
+  rootFolderName() {
+    return this.flService.rootFolderName();
   }
 
   hasChild = (_: number, node: FsNode) => node.expandable;

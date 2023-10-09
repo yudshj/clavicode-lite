@@ -124,6 +124,13 @@ export class FileLocalService {
     (node) => { node.expanded = false; })
 
   rootHandle: FileSystemDirectoryHandle | null = null;
+  
+  rootEmpty() {
+    return this.flattenedData.value.length === 0;
+  }
+  rootFolderName() {
+    return this.rootHandle?.name ?? null;
+  }
 
   private async getChildren(handle: FileSystemDirectoryHandle, level: number) {
     const children: FsNode[] = [];

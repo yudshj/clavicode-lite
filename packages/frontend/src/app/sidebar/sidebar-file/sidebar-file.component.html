@@ -51,4 +51,7 @@
   <div *ngIf="!loaded" class="empty">
     点击左上角按钮可打开本地工作文件夹。
   </div>
+  <div *ngIf="loaded && this.rootEmpty" class="empty">
+    您已打开本地文件夹 {{ rootFolderName() }}。这是空文件夹；点击右上角按钮新建文件或文件夹。
+  </div>
 </div>
